@@ -1,5 +1,5 @@
-import React from "react";
-import "./List.css";
+import React from 'react';
+import './List.css';
 
 const List = (props) => {
   const { words } = props;
