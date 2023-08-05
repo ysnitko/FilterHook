@@ -8,8 +8,6 @@ const Controls = ({
   changeInputValues,
   resetFilter,
 }) => {
-  console.log('Controls component render');
-
   return (
     <div className="Actions">
       <input

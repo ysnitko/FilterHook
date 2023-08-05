@@ -2,9 +2,7 @@ import React from 'react';
 import './List.css';
 
 const List = ({ filterWords }) => {
-  const filter = filterWords();
-  const wordsList = filter.map((word, index) => {
-    console.log(`list render ${word.length}`);
+  const wordsList = filterWords.map((word, index) => {
     return <li key={index}>{word}</li>;
   });
 
