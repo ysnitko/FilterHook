@@ -1,8 +1,15 @@
 import React from 'react';
 import './Controls.css';
 
-const Controls = (props) => {
-  const { isChecked, setIsChecked } = props;
+const Controls = ({
+  isChecked,
+  setIsChecked,
+  searchValue,
+  changeInputValues,
+  resetFilter,
+}) => {
+  console.log('Controls component render');
+
   return (
     <div className="Actions">
       <input
@@ -10,8 +17,8 @@ const Controls = (props) => {
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
       />
-      <input type="text" />
-      <input type="button" value={'reset'} />
+      <input type="text" value={searchValue} onChange={changeInputValues} />
+      <input type="button" value={'reset'} onClick={resetFilter} />
     </div>
   );
 };

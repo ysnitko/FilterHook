@@ -1,26 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import Controls from '../Controls/Controls';
 import List from '../List/List';
 import './Filter.css';
-let words = require('../../wordsList.json');
+import words from '../../wordsList.json';
 
 const Filter = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [sortedWords, setSortedWords] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  useEffect(() => {
+  console.log('Parent component render');
+
+  const changeInputValues = useCallback((event) => {
+    setSearchValue(event.target.value);
+  }, []);
+
+  const filterWords = useCallback(() => {
+    const filteredList = words.filter((word) => word.includes(searchValue));
     if (isChecked) {
-      const updatedSortedWords = [...words].sort();
-      setSortedWords(updatedSortedWords);
-    } else {
-      setSortedWords(words);
+      return filteredList.sort();
     }
-  }, [isChecked]);
+    return filteredList;
+  }, [isChecked, searchValue]);
+
+  const resetFilter = useCallback(() => {
+    setSortedWords(words);
+    setIsChecked(false);
+    setSearchValue('');
+  }, []);
 
   return (
     <div className="Filter">
-      <Controls isChecked={isChecked} setIsChecked={setIsChecked} />
-      <List words={isChecked ? sortedWords : words} />
+      <Controls
+        isChecked={isChecked}
+        setIsChecked={setIsChecked}
+        searchValue={searchValue}
+        changeInputValues={changeInputValues}
+        resetFilter={resetFilter}
+      />
+      <List words={isChecked ? sortedWords : words} filterWords={filterWords} />
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import './List.css';
 
-const List = (props) => {
-  const { words } = props;
-  const wordsList = words.map((word, index) => {
+const List = ({ filterWords }) => {
+  const filter = filterWords();
+  const wordsList = filter.map((word, index) => {
+    console.log(`list render ${word.length}`);
     return <li key={index}>{word}</li>;
   });
 
